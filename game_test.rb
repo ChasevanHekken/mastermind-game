@@ -9,12 +9,13 @@ require_relative 'input_checker'
 
 
 class GameTest < Minitest::Test
-  def test_process_game_turn_method
+  def test_if_game_responds_to_start
     game = Game.new
-
-
+    assert game.respond_to?(:start)
   end
 
-
-
+  def test_if_game_responds_to_process_initial_commands
+    game = Game.new
+    assert game.respond_to?(:process_initial_commands)
+  end
 end

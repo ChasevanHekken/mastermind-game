@@ -7,6 +7,7 @@ class Game
 
   def initialize
     @command = ""
+    @secret_code = ""
     @printer = MessagePrinter.new
     @input = InputChecker.new
     start
@@ -23,7 +24,7 @@ class Game
   def process_initial_commands
     case
     when input.play?(@command)
-      play = Play.new(printer)
+      play = Play.new(printer, @command, @secret_code)
       play.play
     when input.instructions?(@command)
       printer.instructions

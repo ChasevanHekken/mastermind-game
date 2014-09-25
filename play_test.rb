@@ -8,27 +8,38 @@ require_relative 'message_printer'
 require_relative 'input_checker'
 
 class PlayTest < Minitest::Test
-  def test_guess_checker_method
+  def test_talk_to_guess_checker_method_specifically_correct_position
     skip
-    play = Play.new
-    @command = "qrbyere"
-    assert  play.process_game_turn
-
-  end
-
-  def test_guess_checker_when_guess_matches
-
-    play = Play.new
-    @command = "qrby"
-    @secret_code = "qrby"
+    play = Play.new("rbby", "ybbg")
     play.talk_to_guess_checker
-    assert_equal 4, play.correct_color
+    assert_equal 2, play.correct_position
+    play = Play.new("rgby", "rgby")
+    play.talk_to_guess_checker
+    assert_equal 4, play.correct_position
   end
 
-  def test_time_correct_guess_method
+  def test_talk_to_guess_checker_method_if_num_guesses_increments
+    play = Play.new("rbby", "ybbg")
+    play.talk_to_guess_checker
+    assert_equal 1, play.num_guesses
+    play.talk_to_guess_checker
+    assert_equal 2, play.num_guesses
+    play.talk_to_guess_checker
+    assert_equal 3, play.num_guesses
+  end
 
+  def test_if_play_method_is_able_to_respond
+    play = Play.new("qrby", "qrby")
+    assert play.respond_to?(:play)
+  end
 
+  def test_if_time_correct_guess_method_is_able_to_respond
+    play = Play.new("qrby", "qrby")
+    assert play.respond_to?(:time_correct_guess)
+  end
 
-
+  def test_if_generate_random_code_method_is_able_to_respond
+    play = Play.new("qrby", "qrby")
+    assert play.respond_to?(:generate_random_code)
   end
 end

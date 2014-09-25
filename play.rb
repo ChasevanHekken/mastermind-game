@@ -6,11 +6,12 @@ require_relative 'input_checker'
 class Play
   attr_reader :correct_position, :correct_color, :num_guesses, :printer, :secret_code, :command, :input
 
-  def initialize(printer = MessagePrinter.new)
+  def initialize(printer = MessagePrinter.new, command, secret_code)
     @start_time = Time.new
     @num_guesses = 0
     @printer = printer
-    @command = ""
+    @command = command
+    @secret_code = secret_code
     generate_random_code
     @input = InputChecker.new
   end
