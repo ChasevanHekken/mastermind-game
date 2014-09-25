@@ -27,7 +27,6 @@ class Play
   end
 
   def process_game_turn
-    puts "Secret code is #{@secret_code.upcase}"
     case
     when input.exit?(@command)
     when input.too_short?(@command)
