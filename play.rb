@@ -21,11 +21,12 @@ class Play
     until input.exit?(@command) || input.win?(@command, @secret_code)
       process_game_turn
     end
-    correct_guess
+    time_correct_guess
     printer.you_win(@secret_code, @num_guesses, @time_minutes, @time_seconds)
   end
 
   def process_game_turn
+    puts "Secret code is #{@secret_code.upcase}"
     case
     when input.exit?(@command)
     when input.too_short?(@command)
@@ -36,19 +37,23 @@ class Play
       @command = gets.strip
     when input.incorrect_guess?(@command, @secret_code)
       talk_to_guess_checker
+      print_guess_results
     end
   end
 
   def talk_to_guess_checker
     @num_guesses += 1
-    guess_checker = GuessChecker.new
-    @correct_position = guess_checker.check_position(@command, @secret_code)
-    @correct_color = guess_checker.check_color(@command, @secret_code)
+    guess_checker = GuessChecker.new(@command, @secret_code)
+    @correct_position = guess_checker.check_position
+    @correct_color = guess_checker.check_color
+  end
+
+  def print_guess_results
     printer.guess_results(@command, @correct_color, @correct_position, @num_guesses)
     @command = gets.strip
   end
 
-  def correct_guess
+  def time_correct_guess
     @end_time = Time.new
     @time_length = ( @end_time - @start_time ).to_i
     @time_minutes = ( @time_length / 60 )

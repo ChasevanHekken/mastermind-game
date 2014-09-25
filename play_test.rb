@@ -17,14 +17,18 @@ class PlayTest < Minitest::Test
   end
 
   def test_guess_checker_when_guess_matches
-    skip
+
     play = Play.new
     @command = "qrby"
     @secret_code = "qrby"
     play.talk_to_guess_checker
-    assert_equal 4, @correct_color
-    assert_equal 4, @correct_position
+    assert_equal 4, play.correct_color
   end
 
+  def test_time_correct_guess_method
 
+
+
+
+  end
 end
