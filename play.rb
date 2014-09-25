@@ -12,11 +12,11 @@ class Play
     @printer = printer
     @command = command
     @secret_code = secret_code
-    generate_random_code
     @input = InputChecker.new
   end
 
   def play
+    generate_random_code
     printer.take_a_guess
     @command = gets.strip
     until input.exit?(@command) || input.win?(@command, @secret_code)
